@@ -47,7 +47,7 @@ class Tree
 
 
     end
-    def insert(node=@root,value)
+    def insert(value, node=@root)
 
         if node.data == value
             puts "This data point already exists."
@@ -67,11 +67,78 @@ class Tree
         end
     end
 
-    def check_nodes(node,value)
+    def delete(value)
+        if @root.data == value
+            node = @root
+        else
+            node = locate(value)
+        end
+
+        if node == nil 
+            puts "The value doesn't exist."
+        elsif node == @root
+            if node.left != nil && node.right != nil
+               
+            elsif node.left != nil
+
+            elsif node.right != nil
+
+            else
+                @root = nil
+            end
+        elsif node.right == value
+            if node.right.right != nil && node.right.left != nil
+
+            elsif node.right.right != nil
+
+            elsif node.right.left != nil
+
+            else
+                node.right = nil
+            end
+        elsif node.left == value
+            if node.left.right != nil && node.right.left != nil
+
+            elsif node.left.right != nil
+                node.left = node.left.right
+
+            elsif node.left.left != nil
+                node.left = node.left.left
+            else
+                node.left = nil
+            end
+            
+
+        end
+    end
+    def locate(value, node=@root)
+        if node.data < value
+            if node.right != nil
+                if node.right.data == value
+                    return node
+                else
+                    locate(value, node.right)
+                end
+            else
+                return nil
+            end
+        elsif node.data > value
+            if node.left != nil
+                if node.left.data == value
+                    return node
+                else
+                    locate(value, node.left)
+                end
+            else
+                return nil
+            end
+        end
+    end
+
+    def min_value()
         
     
     end
-    
 
     def pretty_print(node = @root, prefix = '', is_left = true)
         pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
