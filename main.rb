@@ -204,6 +204,35 @@ class Tree
             end
         end
     end
+
+    #returns a array of values of the tree consistent with breadth first
+    #root is initial value in queue array
+    def level_order(node=@root, result_array=[], queue_array=[@root])
+        #add children to queue if they exist
+        
+        if node.left != nil 
+            queue_array.append(node.left)
+            puts "check 1"
+        end
+
+        if node.right != nil
+            queue_array.append(node.right)
+            puts "check 2"
+        end
+        
+        result_array.append(node.data)
+        
+        
+        queue_array.shift
+        if queue_array.length != 0
+            
+            level_order(queue_array[0],result_array, queue_array)
+        end
+
+        result_array
+        
+
+    end
 end
 
 def space
@@ -222,4 +251,6 @@ my_bst.delete(999)
 my_bst.pretty_print
 
 puts my_bst.find(67)
+
+puts my_bst.level_order
 
