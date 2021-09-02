@@ -68,33 +68,39 @@ class Tree
     end
 
     def delete(value, node=@root)
-        puts value
-        puts "break"
-        puts node.data
+       
+      
+        #checks the current node for the correct value 
         if node.data != value
-            puts "here"
+            
             node = locate(value, node)
-            puts node.data
+           
         end
-
+        #if the locate method returns nil it's because the tree did not contain 
+        #the value to be deleted
         if node == nil 
             return nil
+        #if the curent node (the root), is the value to be deleted
         elsif node.data == value
             if node.left != nil && node.right != nil
+                #successor method used to find the minimum value of the right 
+                #node to seek a replacement for the root if there exists
+                #a left and right node
                 temp = in_order_successor(node)
                 node.data = temp.data
-                puts "Hello"
+                #calls delete again to delete the duplicate value that replaced
+                #the original node to be deleted
                 delete(temp.data, node.right)
             elsif node.left != nil
                 temp = node.left
                 node.data = temp.data
-                puts "Howdy"
+                
                 delete(temp.data, node.left)
             elsif node.right != nil 
                 temp = node.right
                 node.data = temp.data
-                puts "Hi"
-                puts node.data
+                
+                
                 delete(temp.data, node.right)
             end
         elsif node.right.data == value
@@ -125,15 +131,16 @@ class Tree
 
         end
     end
+    #locates a node to be deleted
     def locate(value, node=@root)
        
         if node.data < value
             if node.right != nil
                 if node.right.data == value
                     return node
-                    puts "option 1"
+                    
                 else
-                    puts "option 2"
+                   
                     locate(value, node.right)
                 end
             else
@@ -142,10 +149,10 @@ class Tree
         elsif node.data > value
             if node.left != nil
                 if node.left.data == value
-                    puts "option 3"
+                    
                     return node
                 else
-                    puts "option 4"
+                    
                     locate(value, node.left)
                 end
             else
@@ -153,7 +160,7 @@ class Tree
             end
         end
     end
-
+    #finds the inorder successor to a root with 2 children
     def in_order_successor(current)
         current = current.right
         while current.left != nil
@@ -167,6 +174,35 @@ class Tree
         pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
         puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
         pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
+    end
+    
+    #finds node corresponding to value given, returns nil if no value is found
+    def find(value, node=@root)
+        if node.data < value
+            if node.right != nil
+                if node.right.data == value
+                    return node.right
+                    
+                else
+                   
+                    find(value, node.right)
+                end
+            else
+                return nil
+            end
+        elsif node.data > value
+            if node.left != nil
+                if node.left.data == value
+                    
+                    return node.left
+                else
+                    
+                    find(value, node.left)
+                end
+            else
+                return nil
+            end
+        end
     end
 end
 
@@ -182,5 +218,8 @@ my_bst.insert(53)
 
 my_bst.pretty_print
 space
-my_bst.delete(1)
+my_bst.delete(999)
 my_bst.pretty_print
+
+puts my_bst.find(67)
+
