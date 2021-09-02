@@ -212,12 +212,12 @@ class Tree
         
         if node.left != nil 
             queue_array.append(node.left)
-            puts "check 1"
+            
         end
 
         if node.right != nil
             queue_array.append(node.right)
-            puts "check 2"
+            
         end
         
         result_array.append(node.data)
@@ -231,6 +231,24 @@ class Tree
 
         result_array
         
+
+    end
+
+    def pre_order(node=@root, result_array = [])
+        result_array.append(node.data)
+
+        if node.left != nil
+            pre_order(node.left, result_array)
+        end
+
+        if node.right != nil
+            pre_order(node.right, result_array)
+        end
+
+        result_array
+
+
+
 
     end
 end
@@ -253,4 +271,6 @@ my_bst.pretty_print
 puts my_bst.find(67)
 
 puts my_bst.level_order
+puts "\n"
+puts my_bst.pre_order
 
