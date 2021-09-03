@@ -10,6 +10,7 @@ class Node
 end
 
 class Tree
+    attr_accessor :root
     #sorts and removes duplicates
     def sort_out(origin_array)
         origin_array.sort!
@@ -280,6 +281,72 @@ class Tree
         result_array
 
     end
+
+    def height(node=@root)
+        left_height = 0
+        right_height = 0
+        if node.right == nil and node.left == nil
+            return 0
+        end
+
+        if node.left != nil
+            left_height = height(node.left)
+            left_height += 1
+        end
+
+        if node.right != nil
+            right_height = height(node.right)
+            right_height += 1
+        end
+
+        if left_height > right_height
+            return left_height
+        elsif right_height > left_height
+            return right_height
+        else
+            return left_height
+        end
+    end
+
+    def depth(node=@root)
+        depth = height - height(node) 
+
+    end
+
+    def balanced?(node=@root)
+        puts "check"
+        balanced = true 
+        balanced_left = true
+        balanced_right = true
+        right_height = 0
+        left_height = 0
+        if node.left != nil
+           left_height = height(node.left)
+           balanced_left = balanced?(node.left)
+        end
+        if node.right != nil 
+            right_height = height(node.right)
+            balanced_right = balanced?(node.right)
+        end
+
+        if left_height > right_height 
+            diff = left_height - right_height
+        elsif right_height > left_height
+            diff = right_height - left_height
+        else
+            diff = 0
+        end
+
+        if diff > 1
+            balanced = false
+        elsif balanced_left == false
+            balanced = false
+        elsif balanced_right == false
+            balanced = false
+        end
+
+        balanced
+    end
 end
 
 def space
@@ -308,5 +375,12 @@ puts my_bst.in_order
 puts "\n"
 my_bst.pretty_print
 puts my_bst.post_order
-
+puts "\n"
+puts my_bst.height
+puts "\n"
+puts my_bst.root.right.data
+puts my_bst.depth(my_bst.root.right.right)
+puts "\n"
+my_bst.insert(7000)
+puts my_bst.balanced?
 
