@@ -236,7 +236,6 @@ class Tree
 
     def pre_order(node=@root, result_array = [])
         result_array.append(node.data)
-
         if node.left != nil
             pre_order(node.left, result_array)
         end
@@ -244,12 +243,26 @@ class Tree
         if node.right != nil
             pre_order(node.right, result_array)
         end
+        
+        result_array
+    end
+
+    def in_order(node=@root, result_array = [])
+        
+       
+        if node.left != nil
+        in_order(node.left, result_array)
+            
+        end
+
+        result_array.append(node.data)
+
+        if node.right != nil
+            in_order(node.right, result_array)
+            
+        end
 
         result_array
-
-
-
-
     end
 end
 
@@ -273,4 +286,8 @@ puts my_bst.find(67)
 puts my_bst.level_order
 puts "\n"
 puts my_bst.pre_order
+puts "\n"
+my_bst.pretty_print
+puts my_bst.in_order 
+
 
