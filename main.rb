@@ -264,7 +264,7 @@ class Tree
         result_array
     end
 
-    def post_order(node=@root, result_array =[])
+    def post_order(node=@root, result_array=[])
 
         if node.left != nil
             post_order(node.left, result_array)
@@ -353,48 +353,39 @@ class Tree
             new_array = level_order
             new_array.sort!
             puts new_array
-            n = new_array.length
+            n = new_array.length - 1
             @root = build_tree(new_array, 0, n)
         end
     end
 end
 
-def space
-    5.times{puts "\n"}
+test_array = Array.new(15) { rand(1..100) }
+test_bst = Tree.new(test_array)
+test_bst.pretty_print
+puts test_bst.balanced?
+puts "\n"
+puts test_bst.level_order
+puts "\n"
+puts test_bst.pre_order
+puts "\n"
+puts test_bst.in_order
+puts "\n"
+puts test_bst.post_order
+puts "\n"
+10.times do
+    test_bst.insert(rand(100..500))
 end
-test_array = [1, 7, 4, 23, 8, 9, 2, 55, 52, 38, 47, 4, 3, 5, 7, 9, 67, 6345, 324]
-my_bst = Tree.new(test_array)
-my_bst.pretty_print
-space
-#puts test_array.sort.uniq
-my_bst.insert(53)
-
-my_bst.pretty_print
-space
-my_bst.delete(999)
-my_bst.pretty_print
-
-puts my_bst.find(67)
-
-puts my_bst.level_order
+test_bst.pretty_print
+puts test_bst.balanced?
+test_bst.rebalance
+test_bst.pretty_print
+puts test_bst.balanced?
+puts test_bst.level_order
 puts "\n"
-puts my_bst.pre_order
+puts test_bst.pre_order
 puts "\n"
-my_bst.pretty_print
-puts my_bst.in_order 
+puts test_bst.in_order
 puts "\n"
-my_bst.pretty_print
-puts my_bst.post_order
+test_bst.pretty_print
+puts test_bst.post_order
 puts "\n"
-puts my_bst.height
-puts "\n"
-puts my_bst.root.right.data
-puts my_bst.depth(my_bst.root.right.right)
-puts "\n"
-my_bst.insert(7000)
-puts my_bst.balanced?
-puts "\n"
-my_bst.pretty_print
-my_bst.rebalance
-my_bst.pretty_print
-
