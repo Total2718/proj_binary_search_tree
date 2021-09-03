@@ -248,8 +248,6 @@ class Tree
     end
 
     def in_order(node=@root, result_array = [])
-        
-       
         if node.left != nil
         in_order(node.left, result_array)
             
@@ -264,12 +262,30 @@ class Tree
 
         result_array
     end
+
+    def post_order(node=@root, result_array =[])
+
+        if node.left != nil
+            post_order(node.left, result_array)
+        end
+    
+    
+        if node.right != nil
+            post_order(node.right, result_array)
+                
+        end
+            
+        result_array.append(node.data)
+
+        result_array
+
+    end
 end
 
 def space
     5.times{puts "\n"}
 end
-test_array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
+test_array = [1, 7, 4, 23, 8, 9, 2, 55, 52, 38, 47, 4, 3, 5, 7, 9, 67, 6345, 324]
 my_bst = Tree.new(test_array)
 my_bst.pretty_print
 space
@@ -289,5 +305,8 @@ puts my_bst.pre_order
 puts "\n"
 my_bst.pretty_print
 puts my_bst.in_order 
+puts "\n"
+my_bst.pretty_print
+puts my_bst.post_order
 
 
