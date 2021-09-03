@@ -314,7 +314,7 @@ class Tree
     end
 
     def balanced?(node=@root)
-        puts "check"
+    
         balanced = true 
         balanced_left = true
         balanced_right = true
@@ -346,6 +346,16 @@ class Tree
         end
 
         balanced
+    end
+    
+    def rebalance
+        if balanced? == false
+            new_array = level_order
+            new_array.sort!
+            puts new_array
+            n = new_array.length
+            @root = build_tree(new_array, 0, n)
+        end
     end
 end
 
@@ -383,4 +393,8 @@ puts my_bst.depth(my_bst.root.right.right)
 puts "\n"
 my_bst.insert(7000)
 puts my_bst.balanced?
+puts "\n"
+my_bst.pretty_print
+my_bst.rebalance
+my_bst.pretty_print
 
